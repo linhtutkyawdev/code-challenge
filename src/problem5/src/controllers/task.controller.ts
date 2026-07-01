@@ -22,6 +22,12 @@ export function getTaskById(req: Request, res: Response) {
 }
 
 export function updateStatus(req: Request, res: Response) {
+  if (!req.body.status) {
+    return res.status(400).json({ error: "Missing status" });
+  }
+  else if (!["pending", "in_progress", "done"].includes(req.body.status)) {
+    return res.status(400).json({ error: "Invalid status! Must be one of: pending, in_progress, done" });
+  }
   const task = service.updateStatus(
     Number(req.params.id),
     req.body.status
@@ -32,5 +38,10 @@ export function updateStatus(req: Request, res: Response) {
 
 export function archiveTask(req: Request, res: Response) {
   const result = service.archiveTask(Number(req.params.id));
+  res.json(result);
+}
+
+export function deleteTask(req: Request, res: Response) {
+  const result = service.deleteTask(Number(req.params.id));
   res.json(result);
 }

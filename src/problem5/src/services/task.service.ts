@@ -88,3 +88,17 @@ export function updateStatus(id: number, status: TaskStatus) {
 export function archiveTask(id: number) {
   return updateStatus(id, "archived");
 }
+
+export function deleteTask(id: number) {
+  const current = getTaskById(id);
+  if (!current) return null;
+
+  execute(`DELETE FROM tasks WHERE id = ?`, [id]);
+
+  execute(`
+    INSERT INTO task_events (task_id, event, payload)
+    VALUES (?, 'TASK_DELETED', ?)
+  `, [id, JSON.stringify(current)]);
+
+  return current;
+}

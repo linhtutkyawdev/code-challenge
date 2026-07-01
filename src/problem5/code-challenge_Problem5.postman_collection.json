@@ -309,7 +309,209 @@
       ]
     },
     {
+      "name": "Update Task Status",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "// \"pending\" | \"in_progress\" | \"done\"\n\n{\n    \"status\": \"in_progress\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseURL}}/tasks/1/status",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "tasks",
+            "1",
+            "status"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Update Task Status",
+          "originalRequest": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "// \"pending\" | \"in_progress\" | \"done\"\n\n{\n    \"status\": \"in_progress\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/tasks/1/status",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "tasks",
+                "1",
+                "status"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "",
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "196"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"c4-Voz6aI0618UfFeI+TG1QcytBl6k\""
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 01 Jul 2026 12:03:58 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [
+            {
+              "expires": "Invalid Date",
+              "domain": "",
+              "path": ""
+            }
+          ],
+          "body": "{\n    \"id\": 1,\n    \"title\": \"Title1\",\n    \"description\": \"Desc1\",\n    \"priority\": 10,\n    \"status\": \"in_progress\",\n    \"due_at\": \"01-01-20026\",\n    \"created_at\": \"2026-07-01 11:58:58\",\n    \"updated_at\": \"2026-07-01 12:03:58\",\n    \"urgencyScore\": 100\n}"
+        }
+      ]
+    },
+    {
       "name": "Archive Task",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseURL}}/tasks/1/archive",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "tasks",
+            "1",
+            "archive"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Archive Task",
+          "originalRequest": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/tasks/1/status",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "tasks",
+                "1",
+                "status"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "196"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"c4-Voz6aI0618UfFeI+TG1QcytBl6k\""
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 01 Jul 2026 12:03:58 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"title\": \"Title1\",\n    \"description\": \"Desc1\",\n    \"priority\": 10,\n    \"status\": \"in_progress\",\n    \"due_at\": \"01-01-20026\",\n    \"created_at\": \"2026-07-01 11:58:58\",\n    \"updated_at\": \"2026-07-01 12:03:58\",\n    \"urgencyScore\": 100\n}"
+        }
+      ]
+    },
+    {
+      "name": "Delete Task",
       "request": {
         "auth": {
           "type": "noauth"
@@ -401,104 +603,6 @@
           ],
           "cookie": [],
           "body": "{\n    \"id\": 1,\n    \"title\": \"Title1\",\n    \"description\": \"Desc1\",\n    \"priority\": 10,\n    \"status\": \"archived\",\n    \"due_at\": \"01-01-20026\",\n    \"created_at\": \"2026-07-01 11:58:58\",\n    \"updated_at\": \"2026-07-01 12:05:03\",\n    \"urgencyScore\": 100\n}"
-        }
-      ]
-    },
-    {
-      "name": "Update Task Status",
-      "request": {
-        "auth": {
-          "type": "noauth"
-        },
-        "method": "PATCH",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "// \"pending\" | \"in_progress\" | \"done\" | \"archived\"\n\n{\n    \"status\": \"in_progress\"\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{baseURL}}/tasks/1/status",
-          "host": [
-            "{{baseURL}}"
-          ],
-          "path": [
-            "tasks",
-            "1",
-            "status"
-          ]
-        }
-      },
-      "response": [
-        {
-          "name": "Update Task Status",
-          "originalRequest": {
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "// \"pending\" | \"in_progress\" | \"done\" | \"archived\"\n\n{\n    \"status\": \"in_progress\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseURL}}/tasks/1/status",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "tasks",
-                "1",
-                "status"
-              ]
-            }
-          },
-          "status": "OK",
-          "code": 200,
-          "_postman_previewlanguage": null,
-          "header": [
-            {
-              "key": "X-Powered-By",
-              "value": "Express"
-            },
-            {
-              "key": "Access-Control-Allow-Origin",
-              "value": "*"
-            },
-            {
-              "key": "Content-Type",
-              "value": "application/json; charset=utf-8"
-            },
-            {
-              "key": "Content-Length",
-              "value": "196"
-            },
-            {
-              "key": "ETag",
-              "value": "W/\"c4-Voz6aI0618UfFeI+TG1QcytBl6k\""
-            },
-            {
-              "key": "Date",
-              "value": "Wed, 01 Jul 2026 12:03:58 GMT"
-            },
-            {
-              "key": "Connection",
-              "value": "keep-alive"
-            },
-            {
-              "key": "Keep-Alive",
-              "value": "timeout=5"
-            }
-          ],
-          "cookie": [],
-          "body": "{\n    \"id\": 1,\n    \"title\": \"Title1\",\n    \"description\": \"Desc1\",\n    \"priority\": 10,\n    \"status\": \"in_progress\",\n    \"due_at\": \"01-01-20026\",\n    \"created_at\": \"2026-07-01 11:58:58\",\n    \"updated_at\": \"2026-07-01 12:03:58\",\n    \"urgencyScore\": 100\n}"
         }
       ]
     }
