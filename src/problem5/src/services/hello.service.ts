@@ -1,1 +1,0 @@
-export const getHelloData = ()  => ({"message": "Hello"})

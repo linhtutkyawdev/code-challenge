@@ -1,12 +1,12 @@
 import express from "express";
 import cors from "cors";
-import helloRoutes from "@/routes/hello.routes.js";
+import taskRoutes from "@/routes/tesk.route.js";
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-app.use("/", helloRoutes);
+app.use("/tasks", taskRoutes);
 
 export default app;
