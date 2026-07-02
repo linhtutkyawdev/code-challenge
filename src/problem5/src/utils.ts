@@ -34,8 +34,7 @@ export function calculateUrgency(task: Task) {
   return task.priority * 10 + dueWeight;
 }
 
-
-const taskStatuses = ["pending", "in_progress", "done"] as const;
+export const taskStatuses = ["pending", "in_progress", "done"] as const;
 
 export function isTaskStatus(value: unknown): value is TaskStatus {
   return (
@@ -53,7 +52,7 @@ export function getTaskId(req: Request): number | null {
   if (typeof rawId !== "string") {
     return null;
   }
-  if (isValidId(rawId)) {
+  if (!isValidId(rawId)) {
     return null;
   }
   return Number(rawId);

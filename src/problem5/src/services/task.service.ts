@@ -1,5 +1,40 @@
 import { calculateUrgency, execute, query, queryOne } from "@/utils.js";
-import type { CreateTaskInput, ListTasksFilter, SqlValue, Task, TaskStatus, UpdateTaskInput } from "@/interfaces/task.interface.js";
+import { getTaskTagsBulk } from "@/services/task_tag.service.js";
+import type {
+  CreateTaskInput,
+  ListTasksFilter,
+  SqlValue,
+  Task,
+  TaskStatus,
+  UpdateTaskInput
+} from "@/interfaces/task.interface.js";
+
+function normalizePriority(priority: unknown): number {
+  if (priority === undefined || priority === null) {
+    throw new Error("priority is required");
+  }
+
+  if (typeof priority !== "number" || !Number.isInteger(priority)) {
+    throw new Error("priority must be integer");
+  }
+
+  if (priority < 1 || priority > 10) {
+    throw new Error("priority must be between 1 and 10");
+  }
+
+  return priority;
+}
+
+function enrichTasks(tasks: Task[]) {
+  const ids = tasks.map(t => t.id);
+  const tagMap = getTaskTagsBulk(ids);
+
+  return tasks.map(task => ({
+    ...task,
+    urgencyScore: calculateUrgency(task),
+    tags: tagMap.get(task.id) ?? []
+  }));
+}
 
 export function createTask(input: CreateTaskInput) {
   const result = execute(
@@ -10,8 +45,8 @@ export function createTask(input: CreateTaskInput) {
     [
       input.title,
       input.description ?? null,
-      input.priority ?? 3,
-      input.due_at ?? null,
+      normalizePriority(input.priority),
+      input.due_at ?? null
     ]
   );
 
@@ -34,44 +69,65 @@ export function getTaskById(id: number) {
     [id]
   );
 
-  if (!task) {
-    return null;
-  }
+  if (!task) return null;
+
+  const tagsMap = getTaskTagsBulk([id]);
 
   return {
     ...task,
     urgencyScore: calculateUrgency(task),
+    tags: tagsMap.get(id) ?? []
   };
 }
 
 export function listTasks(filter: ListTasksFilter = {}) {
-  let sql = "SELECT * FROM tasks WHERE 1 = 1";
   const params: SqlValue[] = [];
 
-  if (filter.status !== undefined) {
-    sql += " AND status = ?";
+  let sql = `
+    SELECT t.*
+    FROM tasks t
+    WHERE 1 = 1
+  `;
+
+  if (filter.status) {
+    sql += ` AND t.status = ?`;
     params.push(filter.status);
   }
 
   if (filter.priority !== undefined) {
-    sql += " AND priority = ?";
+    sql += ` AND t.priority = ?`;
     params.push(filter.priority);
   }
 
-  return query<Task>(sql, params)
-    .map((task) => ({
-      ...task,
-      urgencyScore: calculateUrgency(task),
-    }))
+  if (filter.tags?.length) {
+    const placeholders = filter.tags.map(() => "?").join(",");
+
+    sql += `
+      AND EXISTS (
+        SELECT 1
+        FROM task_tags tt
+        JOIN tags tg ON tg.id = tt.tag_id
+        WHERE tt.task_id = t.id
+        AND tg.name IN (${placeholders})
+      )
+    `;
+
+    params.push(...filter.tags);
+  }
+
+  const tasks = query<Task>(sql, params);
+
+  return enrichTasks(tasks)
     .sort((a, b) => b.urgencyScore - a.urgencyScore);
 }
 
 export function updateStatus(id: number, status: TaskStatus) {
-  const current = getTaskById(id);
+  const current = queryOne<Task>(
+    "SELECT * FROM tasks WHERE id = ?",
+    [id]
+  );
 
-  if (!current) {
-    return null;
-  }
+  if (!current) return null;
 
   execute(
     `
@@ -94,11 +150,12 @@ export function updateStatus(id: number, status: TaskStatus) {
 }
 
 export function updateTask(id: number, input: UpdateTaskInput) {
-  const current = getTaskById(id);
+  const current = queryOne<Task>(
+    "SELECT * FROM tasks WHERE id = ?",
+    [id]
+  );
 
-  if (!current) {
-    return null;
-  }
+  if (!current) return null;
 
   const updates: string[] = [];
   const params: SqlValue[] = [];
@@ -115,7 +172,7 @@ export function updateTask(id: number, input: UpdateTaskInput) {
 
   if (input.priority !== undefined) {
     updates.push("priority = ?");
-    params.push(input.priority);
+    params.push(normalizePriority(input.priority));
   }
 
   if (input.due_at !== undefined) {
@@ -123,9 +180,7 @@ export function updateTask(id: number, input: UpdateTaskInput) {
     params.push(input.due_at);
   }
 
-  if (updates.length === 0) {
-    return current;
-  }
+  if (!updates.length) return getTaskById(id);
 
   updates.push("updated_at = datetime('now')");
   params.push(id);
@@ -151,11 +206,12 @@ export function updateTask(id: number, input: UpdateTaskInput) {
 }
 
 export function deleteTask(id: number) {
-  const current = getTaskById(id);
+  const current = queryOne<Task>(
+    "SELECT * FROM tasks WHERE id = ?",
+    [id]
+  );
 
-  if (!current) {
-    return null;
-  }
+  if (!current) return null;
 
   execute(
     `

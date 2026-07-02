@@ -4,21 +4,21 @@ import * as controller from "@/controllers/task.controller.js";
 const router = Router();
 // BASE URL /tasks
 // create task
-router.post("/", controller.createTask);
+router.post("/tasks", controller.createTask);
 
 // list tasks
-router.get("/", controller.listTasks);
+router.get("/tasks", controller.listTasks);
 
 // single task
-router.get("/:id", controller.getTaskById);
+router.get("/tasks/:id", controller.getTaskById);
 
 // status change
-router.patch("/:id/status", controller.updateStatus);
+router.patch("/tasks/:id/status", controller.updateStatus);
 
 // update single task
-router.patch("/:id", controller.updateTask);
+router.patch("/tasks/:id", controller.updateTask);
 
 // delete
-router.delete("/:id", controller.deleteTask);
+router.delete("/tasks/:id", controller.deleteTask);
 
 export default router;

@@ -23,6 +23,7 @@ export interface CreateTaskInput {
 export interface ListTasksFilter {
   status?: TaskStatus;
   priority?: number;
+  tags?: string[];
 };
 
 export interface UpdateTaskInput {
