@@ -1,4 +1,4 @@
-import { exec } from "@/db_utils.js";
+import { exec } from "@/utils.js";
 
 exec(`
 CREATE TABLE IF NOT EXISTS tasks (

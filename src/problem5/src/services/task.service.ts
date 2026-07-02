@@ -1,104 +1,171 @@
-import { execute, query, queryOne } from "@/db_utils.js";
-import type { Task, TaskStatus } from "@/interfaces/task.interface.js";
+import { calculateUrgency, execute, query, queryOne } from "@/utils.js";
+import type { CreateTaskInput, ListTasksFilter, SqlValue, Task, TaskStatus, UpdateTaskInput } from "@/interfaces/task.interface.js";
 
-export function createTask(input: {
-  title: string;
-  description?: string;
-  priority?: number;
-  due_at?: string;
-}) {
-  const result = execute(`
+export function createTask(input: CreateTaskInput) {
+  const result = execute(
+    `
       INSERT INTO tasks (title, description, priority, due_at, updated_at)
       VALUES (?, ?, ?, ?, datetime('now'))
-    `, [
-    input.title,
-    input.description ?? null,
-    input.priority ?? 3,
-    input.due_at ?? null]);
+    `,
+    [
+      input.title,
+      input.description ?? null,
+      input.priority ?? 3,
+      input.due_at ?? null,
+    ]
+  );
 
   const id = Number(result.lastInsertRowid);
 
-  execute(`
+  execute(
+    `
       INSERT INTO task_events (task_id, event, payload)
       VALUES (?, 'TASK_CREATED', ?)
-    `, [id, JSON.stringify(input)]);
+    `,
+    [id, JSON.stringify(input)]
+  );
 
   return getTaskById(id);
 }
 
 export function getTaskById(id: number) {
-  const task = queryOne<Task>(`SELECT * FROM tasks WHERE id = ?`, [id]);
+  const task = queryOne<Task>(
+    "SELECT * FROM tasks WHERE id = ?",
+    [id]
+  );
 
-  if (!task) return null;
-
-  const urgencyScore = task.priority * 10 + (task.due_at ? Math.max(0, 10 - daysUntil(task.due_at)) : 0);
+  if (!task) {
+    return null;
+  }
 
   return {
     ...task,
-    urgencyScore
+    urgencyScore: calculateUrgency(task),
   };
 }
 
-function daysUntil(date: string) {
-  const diff = new Date(date).getTime() - Date.now();
-  return Math.ceil(diff / (1000 * 60 * 60 * 24));
-}
+export function listTasks(filter: ListTasksFilter = {}) {
+  let sql = "SELECT * FROM tasks WHERE 1 = 1";
+  const params: SqlValue[] = [];
 
-export function listTasks(filter?: {
-  status?: string;
-}) {
-  let query_string = "SELECT * FROM tasks WHERE 1=1";
-  const params: any[] = [];
-
-  if (filter?.status) {
-    query_string += " AND status = ?";
+  if (filter.status !== undefined) {
+    sql += " AND status = ?";
     params.push(filter.status);
   }
 
-  const tasks = query<Task>(query_string, params);
+  if (filter.priority !== undefined) {
+    sql += " AND priority = ?";
+    params.push(filter.priority);
+  }
 
-  return tasks
-    .map((t) => ({
-      ...t,
-      urgencyScore:
-        t &&
-        t.priority * 10 + (t.due_at ? 5 : 0)
+  return query<Task>(sql, params)
+    .map((task) => ({
+      ...task,
+      urgencyScore: calculateUrgency(task),
     }))
     .sort((a, b) => b.urgencyScore - a.urgencyScore);
 }
 
 export function updateStatus(id: number, status: TaskStatus) {
   const current = getTaskById(id);
-  if (!current) return null;
 
-  execute(`
-    UPDATE tasks
-    SET status = ?, updated_at = datetime('now')
-    WHERE id = ?
-  `, [status, id]);
+  if (!current) {
+    return null;
+  }
 
-  execute(`
-    INSERT INTO task_events (task_id, event, payload)
-    VALUES (?, 'STATUS_CHANGED', ?)
-  `, [id, JSON.stringify({ from: current.status, to: status })]);
+  execute(
+    `
+      UPDATE tasks
+      SET status = ?, updated_at = datetime('now')
+      WHERE id = ?
+    `,
+    [status, id]
+  );
+
+  execute(
+    `
+      INSERT INTO task_events (task_id, event, payload)
+      VALUES (?, 'STATUS_CHANGED', ?)
+    `,
+    [id, JSON.stringify({ from: current.status, to: status })]
+  );
 
   return getTaskById(id);
 }
 
-export function archiveTask(id: number) {
-  return updateStatus(id, "archived");
+export function updateTask(id: number, input: UpdateTaskInput) {
+  const current = getTaskById(id);
+
+  if (!current) {
+    return null;
+  }
+
+  const updates: string[] = [];
+  const params: SqlValue[] = [];
+
+  if (input.title !== undefined) {
+    updates.push("title = ?");
+    params.push(input.title);
+  }
+
+  if (input.description !== undefined) {
+    updates.push("description = ?");
+    params.push(input.description);
+  }
+
+  if (input.priority !== undefined) {
+    updates.push("priority = ?");
+    params.push(input.priority);
+  }
+
+  if (input.due_at !== undefined) {
+    updates.push("due_at = ?");
+    params.push(input.due_at);
+  }
+
+  if (updates.length === 0) {
+    return current;
+  }
+
+  updates.push("updated_at = datetime('now')");
+  params.push(id);
+
+  execute(
+    `
+      UPDATE tasks
+      SET ${updates.join(", ")}
+      WHERE id = ?
+    `,
+    params
+  );
+
+  execute(
+    `
+      INSERT INTO task_events (task_id, event, payload)
+      VALUES (?, 'TASK_UPDATED', ?)
+    `,
+    [id, JSON.stringify(input)]
+  );
+
+  return getTaskById(id);
 }
 
 export function deleteTask(id: number) {
   const current = getTaskById(id);
-  if (!current) return null;
 
-  execute(`DELETE FROM tasks WHERE id = ?`, [id]);
+  if (!current) {
+    return null;
+  }
 
-  execute(`
-    INSERT INTO task_events (task_id, event, payload)
-    VALUES (?, 'TASK_DELETED', ?)
-  `, [id, JSON.stringify(current)]);
+  execute(
+    `
+      INSERT INTO task_events (task_id, event, payload)
+      VALUES (?, 'TASK_DELETED', ?)
+    `,
+    [id, JSON.stringify(current)]
+  );
+
+  execute("DELETE FROM tasks WHERE id = ?", [id]);
 
   return current;
 }

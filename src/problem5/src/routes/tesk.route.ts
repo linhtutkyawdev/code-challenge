@@ -15,8 +15,8 @@ router.get("/:id", controller.getTaskById);
 // status change
 router.patch("/:id/status", controller.updateStatus);
 
-// archive
-router.patch("/:id/archive", controller.archiveTask);
+// update single task
+router.patch("/:id", controller.updateTask);
 
 // delete
 router.delete("/:id", controller.deleteTask);
