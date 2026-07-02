@@ -16,7 +16,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"title\": \"Title2\",\n  \"description\": \"Desc2\",\n  \"priority\": \"5\",\n  \"due_at\": \"02-01-20026\"\n}",
+          "raw": "{\n  \"title\": \"Implement Problem 6\",\n  \"description\": \"Initial Project Setup\",\n  \"priority\": \"10\",\n  \"due_at\": \"03-07-2026\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -41,7 +41,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"title\": \"Solve code challange\",\n  \"description\": \"Solve code challange - Problem5\",\n  \"priority\": \"10\",\n  \"due_at\": \"01-07-20026\"\n}",
+              "raw": "{\n  \"title\": \"Bug 2\",\n  \"description\": \"Bug desc\",\n  \"priority\": 9,\n  \"due_at\": \"05-06-2026\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -58,9 +58,9 @@
               ]
             }
           },
-          "status": "OK",
-          "code": 200,
-          "_postman_previewlanguage": "json",
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
           "header": [
             {
               "key": "X-Powered-By",
@@ -76,15 +76,15 @@
             },
             {
               "key": "Content-Length",
-              "value": "232"
+              "value": "202"
             },
             {
               "key": "ETag",
-              "value": "W/\"e8-dk8FqsnOfqH1O4i5qUpijSujNjI\""
+              "value": "W/\"ca-gx4RjGXkmU5ysy2EpgdWE/Poe4A\""
             },
             {
               "key": "Date",
-              "value": "Wed, 01 Jul 2026 12:47:01 GMT"
+              "value": "Thu, 02 Jul 2026 07:04:28 GMT"
             },
             {
               "key": "Connection",
@@ -95,14 +95,104 @@
               "value": "timeout=5"
             }
           ],
-          "cookie": [
+          "cookie": [],
+          "body": "{\n    \"id\": 4,\n    \"title\": \"Bug 2\",\n    \"description\": \"Bug desc\",\n    \"priority\": 9,\n    \"status\": \"pending\",\n    \"due_at\": \"05-06-2026\",\n    \"created_at\": \"2026-07-02 07:04:27\",\n    \"updated_at\": \"2026-07-02 07:04:27\",\n    \"urgencyScore\": 157,\n    \"tags\": []\n}"
+        }
+      ]
+    },
+    {
+      "name": "Add Tags to Task",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Title2\",\n  \"description\": \"Desc2\",\n  \"priority\": \"5\",\n  \"due_at\": \"02-01-20026\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseURL}}/tasks",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "tasks"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Add Tags to Task",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"bug\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/tasks/4/tags",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "tasks",
+                "4",
+                "tags"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
             {
-              "expires": "Invalid Date",
-              "domain": "",
-              "path": ""
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "23"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"17-TPBdkRZpEmfaWYe0drA2+avE5u4\""
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 02 Jul 2026 07:05:30 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
             }
           ],
-          "body": "{\n    \"id\": 3,\n    \"title\": \"Solve code challange\",\n    \"description\": \"Solve code challange - Problem5\",\n    \"priority\": 10,\n    \"status\": \"pending\",\n    \"due_at\": \"01-07-20026\",\n    \"created_at\": \"2026-07-01 12:47:01\",\n    \"updated_at\": \"2026-07-01 12:47:01\",\n    \"urgencyScore\": 100\n}"
+          "cookie": [],
+          "body": "[\n    {\n        \"id\": 4,\n        \"name\": \"bug\"\n    }\n]"
         }
       ]
     },
@@ -153,13 +243,13 @@
               }
             },
             "url": {
-              "raw": "{{baseURL}}/tasks/3",
+              "raw": "{{baseURL}}/tasks/4",
               "host": [
                 "{{baseURL}}"
               ],
               "path": [
                 "tasks",
-                "3"
+                "4"
               ]
             }
           },
@@ -181,15 +271,15 @@
             },
             {
               "key": "Content-Length",
-              "value": "232"
+              "value": "223"
             },
             {
               "key": "ETag",
-              "value": "W/\"e8-dk8FqsnOfqH1O4i5qUpijSujNjI\""
+              "value": "W/\"df-AvDffL2gXyuuIlf7LHMqjSywEkE\""
             },
             {
               "key": "Date",
-              "value": "Wed, 01 Jul 2026 12:48:29 GMT"
+              "value": "Thu, 02 Jul 2026 07:05:38 GMT"
             },
             {
               "key": "Connection",
@@ -201,7 +291,7 @@
             }
           ],
           "cookie": [],
-          "body": "{\n    \"id\": 3,\n    \"title\": \"Solve code challange\",\n    \"description\": \"Solve code challange - Problem5\",\n    \"priority\": 10,\n    \"status\": \"pending\",\n    \"due_at\": \"01-07-20026\",\n    \"created_at\": \"2026-07-01 12:47:01\",\n    \"updated_at\": \"2026-07-01 12:47:01\",\n    \"urgencyScore\": 100\n}"
+          "body": "{\n    \"id\": 4,\n    \"title\": \"Bug 2\",\n    \"description\": \"Bug desc\",\n    \"priority\": 9,\n    \"status\": \"pending\",\n    \"due_at\": \"05-06-2026\",\n    \"created_at\": \"2026-07-02 07:04:27\",\n    \"updated_at\": \"2026-07-02 07:04:27\",\n    \"urgencyScore\": 157,\n    \"tags\": [\n        {\n            \"id\": 4,\n            \"name\": \"bug\"\n        }\n    ]\n}"
         }
       ]
     },
@@ -226,12 +316,22 @@
           }
         },
         "url": {
-          "raw": "{{baseURL}}/tasks",
+          "raw": "{{baseURL}}/tasks?tags=Tag1&tags=Tag3",
           "host": [
             "{{baseURL}}"
           ],
           "path": [
             "tasks"
+          ],
+          "query": [
+            {
+              "key": "tags",
+              "value": "Tag1"
+            },
+            {
+              "key": "tags",
+              "value": "Tag3"
+            }
           ]
         }
       },
@@ -251,7 +351,7 @@
               }
             },
             "url": {
-              "raw": "{{baseURL}}/tasks?status=pending",
+              "raw": "{{baseURL}}/tasks?tags=bug,chore",
               "host": [
                 "{{baseURL}}"
               ],
@@ -260,8 +360,8 @@
               ],
               "query": [
                 {
-                  "key": "status",
-                  "value": "pending"
+                  "key": "tags",
+                  "value": "bug,chore"
                 }
               ]
             }
@@ -284,15 +384,15 @@
             },
             {
               "key": "Content-Length",
-              "value": "425"
+              "value": "761"
             },
             {
               "key": "ETag",
-              "value": "W/\"1a9-Jljelzjo11tfhZ2jM3eEKnoSBGQ\""
+              "value": "W/\"2f9-O4WXUriEJKnF2sXXrbZFpJzwJbE\""
             },
             {
               "key": "Date",
-              "value": "Wed, 01 Jul 2026 12:56:54 GMT"
+              "value": "Thu, 02 Jul 2026 07:06:18 GMT"
             },
             {
               "key": "Connection",
@@ -304,7 +404,7 @@
             }
           ],
           "cookie": [],
-          "body": "[\n    {\n        \"id\": 3,\n        \"title\": \"Solve code challange\",\n        \"description\": \"Solve code challange - Problem5\",\n        \"priority\": 10,\n        \"status\": \"pending\",\n        \"due_at\": \"01-07-20026\",\n        \"created_at\": \"2026-07-01 12:47:01\",\n        \"updated_at\": \"2026-07-01 12:47:01\",\n        \"urgencyScore\": 105\n    },\n    {\n        \"id\": 2,\n        \"title\": \"Title2\",\n        \"description\": \"Desc2\",\n        \"priority\": 5,\n        \"status\": \"pending\",\n        \"due_at\": \"02-01-20026\",\n        \"created_at\": \"2026-07-01 11:59:19\",\n        \"updated_at\": \"2026-07-01 11:59:19\",\n        \"urgencyScore\": 55\n    }\n]"
+          "body": "[\n    {\n        \"id\": 1,\n        \"title\": \"Init\",\n        \"description\": \"Initial Project Setup\",\n        \"priority\": 6,\n        \"status\": \"pending\",\n        \"due_at\": \"02-07-2026\",\n        \"created_at\": \"2026-07-02 04:55:24\",\n        \"updated_at\": \"2026-07-02 04:55:24\",\n        \"urgencyScore\": 215,\n        \"tags\": [\n            {\n                \"id\": 1,\n                \"name\": \"chore\"\n            },\n            {\n                \"id\": 2,\n                \"name\": \"init\"\n            }\n        ]\n    },\n    {\n        \"id\": 4,\n        \"title\": \"Bug 2\",\n        \"description\": \"Bug desc\",\n        \"priority\": 9,\n        \"status\": \"pending\",\n        \"due_at\": \"05-06-2026\",\n        \"created_at\": \"2026-07-02 07:04:27\",\n        \"updated_at\": \"2026-07-02 07:04:27\",\n        \"urgencyScore\": 157,\n        \"tags\": [\n            {\n                \"id\": 4,\n                \"name\": \"bug\"\n            }\n        ]\n    },\n    {\n        \"id\": 2,\n        \"title\": \"Implement Problem 6\",\n        \"description\": \"Initial Project Setup\",\n        \"priority\": 1,\n        \"status\": \"pending\",\n        \"due_at\": \"03-07-2026\",\n        \"created_at\": \"2026-07-02 06:53:01\",\n        \"updated_at\": \"2026-07-02 06:53:01\",\n        \"urgencyScore\": 137,\n        \"tags\": [\n            {\n                \"id\": 1,\n                \"name\": \"chore\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"dev\"\n            }\n        ]\n    }\n]"
         }
       ]
     },
@@ -366,110 +466,6 @@
           },
           "status": "OK",
           "code": 200,
-          "_postman_previewlanguage": "",
-          "header": [
-            {
-              "key": "X-Powered-By",
-              "value": "Express"
-            },
-            {
-              "key": "Access-Control-Allow-Origin",
-              "value": "*"
-            },
-            {
-              "key": "Content-Type",
-              "value": "application/json; charset=utf-8"
-            },
-            {
-              "key": "Content-Length",
-              "value": "196"
-            },
-            {
-              "key": "ETag",
-              "value": "W/\"c4-Voz6aI0618UfFeI+TG1QcytBl6k\""
-            },
-            {
-              "key": "Date",
-              "value": "Wed, 01 Jul 2026 12:03:58 GMT"
-            },
-            {
-              "key": "Connection",
-              "value": "keep-alive"
-            },
-            {
-              "key": "Keep-Alive",
-              "value": "timeout=5"
-            }
-          ],
-          "cookie": [
-            {
-              "expires": "Invalid Date",
-              "domain": "",
-              "path": ""
-            }
-          ],
-          "body": "{\n    \"id\": 1,\n    \"title\": \"Title1\",\n    \"description\": \"Desc1\",\n    \"priority\": 10,\n    \"status\": \"in_progress\",\n    \"due_at\": \"01-01-20026\",\n    \"created_at\": \"2026-07-01 11:58:58\",\n    \"updated_at\": \"2026-07-01 12:03:58\",\n    \"urgencyScore\": 100\n}"
-        }
-      ]
-    },
-    {
-      "name": "Archive Task",
-      "request": {
-        "auth": {
-          "type": "noauth"
-        },
-        "method": "PATCH",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{baseURL}}/tasks/1/archive",
-          "host": [
-            "{{baseURL}}"
-          ],
-          "path": [
-            "tasks",
-            "1",
-            "archive"
-          ]
-        }
-      },
-      "response": [
-        {
-          "name": "Archive Task",
-          "originalRequest": {
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseURL}}/tasks/1/status",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "tasks",
-                "1",
-                "status"
-              ]
-            }
-          },
-          "status": "OK",
-          "code": 200,
           "_postman_previewlanguage": null,
           "header": [
             {
@@ -486,15 +482,15 @@
             },
             {
               "key": "Content-Length",
-              "value": "196"
+              "value": "264"
             },
             {
               "key": "ETag",
-              "value": "W/\"c4-Voz6aI0618UfFeI+TG1QcytBl6k\""
+              "value": "W/\"108-S085vqV6D/0k5Lm3IoZPIL/m9ic\""
             },
             {
               "key": "Date",
-              "value": "Wed, 01 Jul 2026 12:03:58 GMT"
+              "value": "Thu, 02 Jul 2026 07:07:03 GMT"
             },
             {
               "key": "Connection",
@@ -506,21 +502,21 @@
             }
           ],
           "cookie": [],
-          "body": "{\n    \"id\": 1,\n    \"title\": \"Title1\",\n    \"description\": \"Desc1\",\n    \"priority\": 10,\n    \"status\": \"in_progress\",\n    \"due_at\": \"01-01-20026\",\n    \"created_at\": \"2026-07-01 11:58:58\",\n    \"updated_at\": \"2026-07-01 12:03:58\",\n    \"urgencyScore\": 100\n}"
+          "body": "{\n    \"id\": 1,\n    \"title\": \"Init\",\n    \"description\": \"Initial Project Setup\",\n    \"priority\": 6,\n    \"status\": \"in_progress\",\n    \"due_at\": \"02-07-2026\",\n    \"created_at\": \"2026-07-02 04:55:24\",\n    \"updated_at\": \"2026-07-02 07:07:03\",\n    \"urgencyScore\": 215,\n    \"tags\": [\n        {\n            \"id\": 1,\n            \"name\": \"chore\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"init\"\n        }\n    ]\n}"
         }
       ]
     },
     {
-      "name": "Delete Task",
+      "name": "Patch Task",
       "request": {
         "auth": {
           "type": "noauth"
         },
-        "method": "DELETE",
+        "method": "PATCH",
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "",
+          "raw": "// \"pending\" | \"in_progress\" | \"done\"\n\n{\n    \"status\": \"in_progress\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -528,25 +524,26 @@
           }
         },
         "url": {
-          "raw": "{{baseURL}}/tasks/1",
+          "raw": "{{baseURL}}/tasks/1/status",
           "host": [
             "{{baseURL}}"
           ],
           "path": [
             "tasks",
-            "1"
+            "1",
+            "status"
           ]
         }
       },
       "response": [
         {
-          "name": "Archive Task",
+          "name": "Patch Task",
           "originalRequest": {
-            "method": "DELETE",
+            "method": "PATCH",
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "",
+              "raw": "{\n  \"title\": \"Bug 2 Update\",\n  \"description\": \"Bug desc updated\",\n  \"priority\": 8,\n  \"due_at\": \"07-07-2026\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -582,15 +579,15 @@
             },
             {
               "key": "Content-Length",
-              "value": "193"
+              "value": "242"
             },
             {
               "key": "ETag",
-              "value": "W/\"c1-pEOUnCcTVLx0hHV3+pRjJuLtFLc\""
+              "value": "W/\"f2-PPfHKZEC1TYY/OoWvPWCYXMfD+k\""
             },
             {
               "key": "Date",
-              "value": "Wed, 01 Jul 2026 12:05:03 GMT"
+              "value": "Thu, 02 Jul 2026 07:12:52 GMT"
             },
             {
               "key": "Connection",
@@ -602,7 +599,244 @@
             }
           ],
           "cookie": [],
-          "body": "{\n    \"id\": 1,\n    \"title\": \"Title1\",\n    \"description\": \"Desc1\",\n    \"priority\": 10,\n    \"status\": \"archived\",\n    \"due_at\": \"01-01-20026\",\n    \"created_at\": \"2026-07-01 11:58:58\",\n    \"updated_at\": \"2026-07-01 12:05:03\",\n    \"urgencyScore\": 100\n}"
+          "body": "{\n    \"id\": 1,\n    \"title\": \"Bug 2 Update\",\n    \"description\": \"Bug desc updated\",\n    \"priority\": 8,\n    \"status\": \"in_progress\",\n    \"due_at\": \"07-07-2026\",\n    \"created_at\": \"2026-07-02 04:55:24\",\n    \"updated_at\": \"2026-07-02 07:12:52\",\n    \"urgencyScore\": 85,\n    \"tags\": [\n        {\n            \"id\": 2,\n            \"name\": \"init\"\n        }\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "Delete Task",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseURL}}/tasks/3",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "tasks",
+            "3"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Events",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseURL}}/tasks?tags=Tag1&tags=Tag3",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "tasks"
+          ],
+          "query": [
+            {
+              "key": "tags",
+              "value": "Tag1"
+            },
+            {
+              "key": "tags",
+              "value": "Tag3"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Get Events",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/events",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "events"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "1404"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"57c-VQPbf5kff06z98Y9XL/X9t1Jo5I\""
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 02 Jul 2026 07:13:10 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"id\": 7,\n        \"task_id\": 1,\n        \"event\": \"TASK_UPDATED\",\n        \"payload\": \"{\\\"title\\\":\\\"Bug 2 Update\\\",\\\"description\\\":\\\"Bug desc updated\\\",\\\"priority\\\":8,\\\"due_at\\\":\\\"07-07-2026\\\"}\",\n        \"created_at\": \"2026-07-02 07:12:52\"\n    },\n    {\n        \"id\": 6,\n        \"task_id\": 3,\n        \"event\": \"TASK_DELETED\",\n        \"payload\": \"{\\\"id\\\":3,\\\"title\\\":\\\"Bug 1\\\",\\\"description\\\":\\\"Bug desc\\\",\\\"priority\\\":10,\\\"status\\\":\\\"pending\\\",\\\"due_at\\\":\\\"05-07-2026\\\",\\\"created_at\\\":\\\"2026-07-02 06:56:21\\\",\\\"updated_at\\\":\\\"2026-07-02 06:56:21\\\"}\",\n        \"created_at\": \"2026-07-02 07:07:31\"\n    },\n    {\n        \"id\": 5,\n        \"task_id\": 1,\n        \"event\": \"STATUS_CHANGED\",\n        \"payload\": \"{\\\"from\\\":\\\"pending\\\",\\\"to\\\":\\\"in_progress\\\"}\",\n        \"created_at\": \"2026-07-02 07:07:03\"\n    },\n    {\n        \"id\": 4,\n        \"task_id\": 4,\n        \"event\": \"TASK_CREATED\",\n        \"payload\": \"{\\\"title\\\":\\\"Bug 2\\\",\\\"description\\\":\\\"Bug desc\\\",\\\"due_at\\\":\\\"05-06-2026\\\",\\\"priority\\\":9}\",\n        \"created_at\": \"2026-07-02 07:04:28\"\n    },\n    {\n        \"id\": 3,\n        \"task_id\": 3,\n        \"event\": \"TASK_CREATED\",\n        \"payload\": \"{\\\"title\\\":\\\"Bug 1\\\",\\\"description\\\":\\\"Bug desc\\\",\\\"due_at\\\":\\\"05-07-2026\\\",\\\"priority\\\":10}\",\n        \"created_at\": \"2026-07-02 06:56:21\"\n    },\n    {\n        \"id\": 2,\n        \"task_id\": 2,\n        \"event\": \"TASK_CREATED\",\n        \"payload\": \"{\\\"title\\\":\\\"Implement Problem 6\\\",\\\"description\\\":\\\"Initial Project Setup\\\",\\\"due_at\\\":\\\"03-07-2026\\\",\\\"priority\\\":1}\",\n        \"created_at\": \"2026-07-02 06:53:01\"\n    },\n    {\n        \"id\": 1,\n        \"task_id\": 1,\n        \"event\": \"TASK_CREATED\",\n        \"payload\": \"{\\\"title\\\":\\\"Init\\\",\\\"description\\\":\\\"Initial Project Setup\\\",\\\"priority\\\":6,\\\"due_at\\\":\\\"02-07-2026\\\"}\",\n        \"created_at\": \"2026-07-02 04:55:24\"\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "Remove Task Tag",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseURL}}/tasks/3/tags/2",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "tasks",
+            "3",
+            "tags",
+            "2"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Remove Task Tag",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/tasks/1/tags/1",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "tasks",
+                "1",
+                "tags",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "24"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"18-iomQfn6l/AlQ4fQB5fY7bKB9btw\""
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 02 Jul 2026 07:09:23 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"id\": 2,\n        \"name\": \"init\"\n    }\n]"
         }
       ]
     }

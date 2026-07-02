@@ -4,6 +4,8 @@ import type { Request } from "express";
 
 const instance = new Database("code-challenge.db");
 
+instance.pragma("foreign_keys = ON");
+
 export function query<T = unknown>(sql: string, params: unknown[] = []) {
   return instance.prepare(sql).all(...params) as T[];
 }
