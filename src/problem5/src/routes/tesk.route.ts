@@ -2,7 +2,7 @@ import { Router } from "express";
 import * as controller from "@/controllers/task.controller.js";
 
 const router = Router();
-
+// BASE URL /tasks
 // create task
 router.post("/", controller.createTask);
 
